@@ -1,41 +1,44 @@
-const totalMinggu=14;
+const totalMinggu = 14;
 
-const siswa=[
+const siswa = [
 
   {
-    nama:"Abilah",
-    role:"CEO",
-    pembayaran:{
-      M1:"03/03/2026",
-      M2:"03/03/2026"
+    nama: "Abilah",
+    role: "CEO",
+    pembayaran: {
+      M1: "03/03/2026",
+      M2: "03/03/2026"
     }
   },
 
   {
-    nama:"Ade Novryan",
-    role:"Member",
-    pembayaran:{}
+    nama: "Ade Novryan",
+    role: "Member",
+    pembayaran: {}
   },
 
   {
-    nama:"Afdhal Batista Dimas Prayoga",
-    role:"CEO",
-    pembayaran:{
-      M1:"06/04/2026",
-      M2:"06/04/2026"
+    nama: "Afdhal Batista Dimas Prayoga",
+    role: "CEO",
+    pembayaran: {
+      M1: "06/04/2026",
+      M2: "06/04/2026"
     }
   }
 
 ];
 
-const headerRow=document.getElementById("headerRow");
-const tableBody=document.getElementById("dataKas");
+const headerRow =
+  document.getElementById("headerRow");
+
+const tableBody =
+  document.getElementById("dataKas");
 
 /* HEADER */
 
 for(let i=1;i<=totalMinggu;i++){
 
-  headerRow.innerHTML+=`
+  headerRow.innerHTML += `
     <th>M${i}</th>
   `;
 }
@@ -63,34 +66,35 @@ function getBadge(role){
 
 function renderTable(){
 
-  tableBody.innerHTML="";
+  tableBody.innerHTML = "";
 
   siswa.forEach(s=>{
 
-    let specialClass=
-      s.role!=="Member"
-      ?"special":"";
+    let specialClass =
+      s.role !== "Member"
+      ? "special"
+      : "";
 
-    let row=`
+    let row = `
       <tr class="${s.role}">
-      <td class="nama ${specialClass}">
-        ${s.nama}
-        ${getBadge(s.role)}
-      </td>
+        <td class="nama ${specialClass}">
+          ${s.nama}
+          ${getBadge(s.role)}
+        </td>
     `;
 
     for(let i=1;i<=totalMinggu;i++){
 
-      const mingguKey="M"+i;
+      const mingguKey = "M"+i;
 
-      const tanggal=
+      const tanggal =
         s.pembayaran[mingguKey] || "";
 
       /* SUDAH BAYAR */
 
       if(tanggal){
 
-        row+=`
+        row += `
         <td>
 
           <input
@@ -104,18 +108,18 @@ function renderTable(){
 
         </td>
         `;
-
       }
 
       /* BELUM BAYAR */
 
       else{
 
-        row+=`
+        row += `
         <td>
 
           <input
             type="checkbox"
+
             onchange="
               bayar(
                 '${s.nama}',
@@ -129,9 +133,9 @@ function renderTable(){
       }
     }
 
-    row+="</tr>";
+    row += "</tr>";
 
-    tableBody.innerHTML+=row;
+    tableBody.innerHTML += row;
   });
 }
 
@@ -139,16 +143,18 @@ function renderTable(){
 
 function bayar(nama,minggu){
 
-  const today=new Date();
+  const today =
+    new Date();
 
-  const tanggal=
+  const tanggal =
     today.toLocaleDateString("id-ID");
 
   siswa.forEach(s=>{
 
     if(s.nama===nama){
 
-      s.pembayaran[minggu]=tanggal;
+      s.pembayaran[minggu] =
+        tanggal;
     }
   });
 
@@ -163,10 +169,10 @@ renderTable();
 
 function setBackgroundByTime(){
 
-  const hour=
+  const hour =
     new Date().getHours();
 
-  const body=
+  const body =
     document.body;
 
   body.classList.remove(
@@ -180,7 +186,6 @@ function setBackgroundByTime(){
     body.classList.add(
       "bg-pagi"
     );
-
   }
 
   else if(hour>=12 && hour<18){
@@ -188,7 +193,6 @@ function setBackgroundByTime(){
     body.classList.add(
       "bg-siang"
     );
-
   }
 
   else{
@@ -203,35 +207,34 @@ setBackgroundByTime();
 
 /* SKY */
 
-const sun=
+const sun =
   document.querySelector(".sun");
 
-const moon=
+const moon =
   document.querySelector(".moon");
 
-const starsContainer=
+const starsContainer =
   document.querySelector(".stars");
 
 function updateSky(){
 
-  const hour=
+  const hour =
     new Date().getHours();
 
   if(hour>=6 && hour<18){
 
-    sun.style.opacity=1;
+    sun.style.opacity = 1;
 
-    moon.style.opacity=0;
+    moon.style.opacity = 0;
 
-    starsContainer.innerHTML="";
-
+    starsContainer.innerHTML = "";
   }
 
   else{
 
-    sun.style.opacity=0;
+    sun.style.opacity = 0;
 
-    moon.style.opacity=1;
+    moon.style.opacity = 1;
 
     createStars();
   }
@@ -243,22 +246,22 @@ updateSky();
 
 function createStars(){
 
-  starsContainer.innerHTML="";
+  starsContainer.innerHTML = "";
 
   for(let i=0;i<80;i++){
 
-    const star=
+    const star =
       document.createElement("div");
 
     star.classList.add("star");
 
-    star.style.top=
+    star.style.top =
       Math.random()*100+"%";
 
-    star.style.left=
+    star.style.left =
       Math.random()*100+"%";
 
-    star.style.animationDuration=
+    star.style.animationDuration =
       (1+Math.random()*2)+"s";
 
     starsContainer.appendChild(star);
@@ -269,15 +272,15 @@ function createStars(){
 
 function shootingStar(){
 
-  const star=
+  const star =
     document.createElement("div");
 
   star.classList.add("shooting");
 
-  star.style.top=
+  star.style.top =
     Math.random()*50+"%";
 
-  star.style.left=
+  star.style.left =
     Math.random()*50+"%";
 
   starsContainer.appendChild(star);
@@ -291,7 +294,7 @@ function shootingStar(){
 
 setInterval(()=>{
 
-  const hour=
+  const hour =
     new Date().getHours();
 
   if(hour>=18 || hour<6){
@@ -300,42 +303,3 @@ setInterval(()=>{
   }
 
 },5000);
-
-/* FIRE */
-
-function createFire(){
-
-  document
-  .querySelectorAll(".Developer td")
-  .forEach(cell=>{
-
-    setInterval(()=>{
-
-      const spark=
-        document.createElement("span");
-
-      spark.classList.add("spark");
-
-      spark.innerHTML="•";
-
-      spark.style.color="#ff4500";
-
-      spark.style.left=
-        Math.random()*100+"%";
-
-      spark.style.animationDuration=
-        (0.8+Math.random()*1.2)+"s";
-
-      cell.appendChild(spark);
-
-      setTimeout(()=>{
-
-        spark.remove();
-
-      },1200);
-
-    },700);
-  });
-}
-
-createFire();
